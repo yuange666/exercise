@@ -1,4 +1,4 @@
-export class extendM {
+export class ExtendM {
     constructor(){
 
     }

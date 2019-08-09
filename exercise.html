@@ -5,10 +5,16 @@
     <title>Title</title>
 </head>
 <body>
-
+<p>在文本框中尝试输入触发函数。</p>
+<input type="text" id="myInput">
+<p id="demo"></p>
 </body>
 <script type="module">
-    import {extendM} from './js/extend.js';
-    extendM.extend6();
+    import {ExtendM} from './js/ExtendM.js';
+    import {Interview} from './js/Interview.js';
+    function f(num) {
+        console.log(num);
+    }
+    Interview.throttle(f,1000)(5555)
 </script>
 </html>
