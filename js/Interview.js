@@ -51,4 +51,33 @@ export class Interview {
             }
         }
     }
+    //闭包
+    static closure(){
+        function f() {
+            let i=0;
+            return function () {
+                console.log(++i);
+            }
+        }
+
+        var b=[];
+        for(var i=0;i<10;i++){
+            b[i]=(function (j) {
+                return function () {
+                    return j
+                }
+            })(i)
+        }
+
+        function moduleA() {
+            let name='aaa';
+            function sayName() {
+                console.log(name)
+            }
+            return {
+                sayName
+            }
+        }
+        moduleA().sayName();
+    }
 }
