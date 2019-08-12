@@ -5,13 +5,47 @@
     <title>Title</title>
 </head>
 <body>
-<p>在文本框中尝试输入触发函数。</p>
-<input type="text" id="myInput">
-<p id="demo"></p>
+<div style="position: absolute;left: 0;top:0;width: 100px;height: 100px;background-color: red" id="test">
+
+</div>
 </body>
+<script src="js/jquery.js"></script>
 <script type="module">
     import {ExtendM} from './js/ExtendM.js';
     import {Interview} from './js/Interview.js';
-    console.log(Interview.reduceUniq([2,1,3,1,3,5]));
+    let animate1=function () {
+        return new Promise((resolve => {
+            $('#test').animate({left:'500px'},function () {
+                resolve();
+            })
+        }))
+    };
+    let animate2=function () {
+        return new Promise((resolve => {
+            $('#test').animate({top:'500px'},function () {
+                resolve();
+            })
+        }))
+    };
+    let animate3=function () {
+        return new Promise((resolve => {
+            $('#test').animate({left:0},function () {
+                resolve();
+            })
+        }))
+    };
+    let animate4=function () {
+        return new Promise((resolve => {
+            $('#test').animate({top:0},function () {
+                resolve();
+            })
+        }))
+    };
+    async function startAnimate() {
+        await animate1();
+        await animate2();
+        await animate3();
+        await animate4();
+    }
 </script>
 </html>
