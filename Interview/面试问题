@@ -19,7 +19,16 @@
     1.具有Symbol.iterator属性，Symbol.iterator()返回遍历器对象
     2.可以用for ... of ..遍历
     3.可以用Array.from转为数组
-
+6.websocket怎么区别是正常关闭的还是异常断开的？
+    websocket onclose里面有一个事件对象参数，它有code，reason，isClean属性，code有各种状态码代表当前连接状态，
+    如1006就代表是因为网络原因导致。isclean属性如果是false代表异常断开
+7.vue与react的区别？相似点？
+    1.vue使用的是HTML模板语法(在技术上也支持render函数,jsx语法，不是默认的)，而react使用的是JSX语法,因此vue熟悉和上手更快。
+    2.变更状态的方式，react只要通过setState方法，不能直接变更state（强调数据的不可变性），而vue数据管理直接在data属性里面（数据可变）。
+    相似点：
+    1.virtual-dom（操作一个js对象开销远小于直接操作dom，运用diff算法进行高效视图更新）。
+    2.组件化开发。
+    3.父子组件通信靠props，并且都是单向数据流。
 
 
 
