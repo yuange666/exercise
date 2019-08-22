@@ -11,41 +11,26 @@
 </body>
 <script src="js/jquery.js"></script>
 <script type="module">
-    import {ExtendM} from './js/ExtendM.js';
-    import {Interview} from './js/Interview.js';
-    let animate1=function () {
-        return new Promise((resolve => {
-            $('#test').animate({left:'500px'},function () {
-                resolve();
-            })
-        }))
-    };
-    let animate2=function () {
-        return new Promise((resolve => {
-            $('#test').animate({top:'500px'},function () {
-                resolve();
-            })
-        }))
-    };
-    let animate3=function () {
-        return new Promise((resolve => {
-            $('#test').animate({left:0},function () {
-                resolve();
-            })
-        }))
-    };
-    let animate4=function () {
-        return new Promise((resolve => {
-            $('#test').animate({top:0},function () {
-                resolve();
-            })
-        }))
-    };
-    async function startAnimate() {
-        await animate1();
-        await animate2();
-        await animate3();
-        await animate4();
+    function* numbers () {
+        yield 1
+        yield 2
+        return 3
+        yield 4
     }
+    console.log(...numbers());
+    console.log(Array.from(numbers()));
+
+    function timeout(ms) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
+        });
+    }
+
+    async function asyncPrint(value, ms) {
+        await timeout(ms);
+        console.log(value);
+    }
+
+    asyncPrint('hello world', 2000);
 </script>
 </html>
