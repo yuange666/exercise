@@ -8,30 +8,102 @@
 
 </body>
 <script type="module">
-    //    import BinarySearchTree from './BinarySearchTree.js';
-    //    let tree=new BinarySearchTree();
-    //    tree.insert(11);
-    //    tree.insert(7);
-    //    tree.insert(15);
-    //    tree.insert(5);
-    //    tree.insert(3);
-    //    tree.insert(9);
-    //    tree.insert(8);
-    //    tree.insert(10);
-    //    tree.insert(13);
-    //    tree.insert(12);
-    //    tree.insert(14);
-    //    tree.insert(20);
-    //    tree.insert(18);
-    //    tree.insert(25);
-    //    tree.insert(6);
-    //    function printNode(value){ //{6}
-    //        console.log(value);
-    //    }
-    //    tree.inOrderTraverse(printNode);
-    //    tree.preOrderTraverse(printNode);
-    //    tree.postOrderTraverse(printNode);
-    //    console.log(tree.min());
-    //    console.log(tree.max());
+//        import BinarySearchTree from './BinarySearchTree.js';
+//        let tree=new BinarySearchTree();
+//        tree.insert(11);
+//        tree.insert(7);
+//        tree.insert(15);
+//        tree.insert(5);
+//        tree.insert(3);
+//        tree.insert(9);
+//        tree.insert(8);
+//        tree.insert(10);
+//        tree.insert(13);
+//        tree.insert(12);
+//        tree.insert(14);
+//        tree.insert(20);
+//        tree.insert(18);
+//        tree.insert(25);
+//        tree.insert(6);
+//        function printNode(value){ //{6}
+//            console.log(value);
+//        }
+//        tree.inOrderTraverse(printNode);
+//        tree.postOrderTraverse(printNode);
+//        console.log(tree.min());
+//        console.log(tree.max());
+//        tree.removeNode(tree.root,13);
+//        tree.preOrderTraverse(printNode);
+        import {listToTree} from './treeMethods.js';
+        //树结构数据示例
+        let tree = [
+            {
+                id: '1',
+                title: '节点1',
+                children: [
+                    {
+                        id: '1-1',
+                        title: '节点1-1',
+                        children: [
+                            {
+                                id: '1-1-1',
+                                title: '节点1-1-1',
+                                children: [
+                                    {
+                                        id: '1-1-1-1',
+                                        title: '节点1-1-1-1',
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: '1-2',
+                        title: '节点1-2'
+                    }
+                ]
+            },
+            {
+                id: '2',
+                title: '节点2',
+                children: [
+                    {
+                        id: '2-1',
+                        title: '节点2-1'
+                    }
+                ]
+            }
+        ];
+        //列表结构数据
+        let list = [
+            {
+                id: '1',
+                title: '节点1',
+                parentId: '',
+            },
+            {
+                id: '1-1',
+                title: '节点1-1',
+                parentId: '1'
+            },
+            {
+                id: '1-2',
+                title: '节点1-2',
+                parentId: '1'
+            },
+            {
+                id: '2',
+                title: '节点2',
+                parentId: ''
+            },
+            {
+                id: '2-1',
+                title: '节点2-1',
+                parentId: '2'
+            }
+        ];
+        console.log(listToTree(list));
+        let a,b;
+        console.log((a=3,b=5,a))
 </script>
 </html>
