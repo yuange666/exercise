@@ -8,102 +8,87 @@
 
 </body>
 <script type="module">
-//        import BinarySearchTree from './BinarySearchTree.js';
-//        let tree=new BinarySearchTree();
-//        tree.insert(11);
-//        tree.insert(7);
-//        tree.insert(15);
-//        tree.insert(5);
-//        tree.insert(3);
-//        tree.insert(9);
-//        tree.insert(8);
-//        tree.insert(10);
-//        tree.insert(13);
-//        tree.insert(12);
-//        tree.insert(14);
-//        tree.insert(20);
-//        tree.insert(18);
-//        tree.insert(25);
-//        tree.insert(6);
-//        function printNode(value){ //{6}
-//            console.log(value);
-//        }
-//        tree.inOrderTraverse(printNode);
-//        tree.postOrderTraverse(printNode);
-//        console.log(tree.min());
-//        console.log(tree.max());
-//        tree.removeNode(tree.root,13);
-//        tree.preOrderTraverse(printNode);
-        import {listToTree} from './treeMethods.js';
-        //树结构数据示例
-        let tree = [
-            {
-                id: '1',
-                title: '节点1',
-                children: [
-                    {
-                        id: '1-1',
-                        title: '节点1-1',
-                        children: [
-                            {
-                                id: '1-1-1',
-                                title: '节点1-1-1',
-                                children: [
-                                    {
-                                        id: '1-1-1-1',
-                                        title: '节点1-1-1-1',
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        id: '1-2',
-                        title: '节点1-2'
-                    }
-                ]
-            },
-            {
-                id: '2',
-                title: '节点2',
-                children: [
-                    {
-                        id: '2-1',
-                        title: '节点2-1'
-                    }
-                ]
+    //        import BinarySearchTree from './BinarySearchTree.js';
+    //        let tree=new BinarySearchTree();
+    //        tree.insert(11);
+    //        tree.insert(7);
+    //        tree.insert(15);
+    //        tree.insert(5);
+    //        tree.insert(3);
+    //        tree.insert(9);
+    //        tree.insert(8);
+    //        tree.insert(10);
+    //        tree.insert(13);
+    //        tree.insert(12);
+    //        tree.insert(14);
+    //        tree.insert(20);
+    //        tree.insert(18);
+    //        tree.insert(25);
+    //        tree.insert(6);
+    //        function printNode(value){ //{6}
+    //            console.log(value);
+    //        }
+    //        tree.inOrderTraverse(printNode);
+    //        tree.postOrderTraverse(printNode);
+    //        console.log(tree.min());
+    //        console.log(tree.max());
+    //        tree.removeNode(tree.root,13);
+    //        tree.preOrderTraverse(printNode);
+    import {bubbleSort,selectionSort} from '../sort/sorts.js';
+    import {binarySearch} from '../dataStructure/binarySearch.js';
+    let arr=[];
+    console.log(binarySearch(arr,3));
+    let i=0;
+    function recursiveFn() {
+        i++;
+        recursiveFn();
+    }
+    try{
+        recursiveFn()
+    }catch {
+        console.log(i);
+    }
+    function fib(num) {
+        let n1=1;
+        let n2=1;
+        let n=1;
+        for(let i=3;i<num;i++){
+            n=n1+n2;
+            n1=n2;
+            n2=n;
+        }
+        return n;
+    }
+
+    function MinCoinChange(coins){
+        var coins = coins; //{1}
+        var cache = {};    //{2}
+        this.makeChange = function(amount) {
+            var me = this;
+            if (!amount) { //{3}
+                return [];
             }
-        ];
-        //列表结构数据
-        let list = [
-            {
-                id: '1',
-                title: '节点1',
-                parentId: '',
-            },
-            {
-                id: '1-1',
-                title: '节点1-1',
-                parentId: '1'
-            },
-            {
-                id: '1-2',
-                title: '节点1-2',
-                parentId: '1'
-            },
-            {
-                id: '2',
-                title: '节点2',
-                parentId: ''
-            },
-            {
-                id: '2-1',
-                title: '节点2-1',
-                parentId: '2'
+            if (cache[amount]) { //{4}
+                return cache[amount];
             }
-        ];
-        console.log(listToTree(list));
-        let a,b;
-        console.log((a=3,b=5,a))
+            var min = [], newMin, newAmount;
+            for (var i=0; i<coins.length; i++){ //{5}
+                var coin = coins[i];
+                newAmount = amount - coin; //{6}
+                if (newAmount >= 0){
+                    newMin = me.makeChange(newAmount); //{7}
+                }
+                if (
+                    newAmount >= 0 && //{8}
+                    (newMin.length < min.length-1 || !min.length)//{9}
+                    && (newMin.length || !newAmount) //{10}
+                ){
+                    min = [coin].concat(newMin); //{11}
+                    console.log('new Min ' + min + ' for ' + amount);
+                } }
+            return (cache[amount] = min); //{12}
+        };
+    }
+
 </script>
 </html>
