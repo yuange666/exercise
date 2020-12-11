@@ -1,73 +1,6 @@
-//树结构数据示例
-let tree = [
-    {
-        id: '1',
-        title: '节点1',
-        children: [
-            {
-                id: '1-1',
-                title: '节点1-1',
-                children: [
-                    {
-                        id: '1-1-1',
-                        title: '节点1-1-1',
-                        children: [
-                            {
-                                id: '1-1-1-1',
-                                title: '节点1-1-1-1',
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                id: '1-2',
-                title: '节点1-2'
-            }
-        ]
-    },
-    {
-        id: '2',
-        title: '节点2',
-        children: [
-            {
-                id: '2-1',
-                title: '节点2-1'
-            }
-        ]
-    }
-];
-//列表结构数据
-let list = [
-    {
-        id: '1',
-        title: '节点1',
-        parentId: '',
-    },
-    {
-        id: '1-1',
-        title: '节点1-1',
-        parentId: '1'
-    },
-    {
-        id: '1-2',
-        title: '节点1-2',
-        parentId: '1'
-    },
-    {
-        id: '2',
-        title: '节点2',
-        parentId: ''
-    },
-    {
-        id: '2-1',
-        title: '节点2-1',
-        parentId: '2'
-    }
-];
 
 //广度优先遍历
-function treeForeach(tree, func) {
+function treeForeach2(tree, func) {
     let node, list = [...tree];
     while (node = list.shift()) {
         func(node);
@@ -76,7 +9,7 @@ function treeForeach(tree, func) {
 }
 
 //深度优先遍历(先序)-递归
-function treeForeach2(tree, func) {
+function treeForeach(tree, func) {
     tree.forEach(data => {
         func(data);
         data.children && treeForeach2(data.children, func);
@@ -120,13 +53,11 @@ function listToTree(list) {
         map[node.id] = node, node.children = [];
         return map;
     }, {});
-    console.log(info);
     return list.filter(node => {
-        info[node.parentId] && info[node.parentId].children.push(node)
+        info[node.parentId] && info[node.parentId].children.push(node);
         return !node.parentId
     })
 }
-
 //树结构转列表-递归
 function treeToList (tree, result = [], level = 0) {
     tree.forEach(node => {
@@ -157,34 +88,106 @@ function treeFind (tree, func) {
     }
     return null
 }
+
+//树结构筛选
+function treeFilter (tree, func) {
+    // 使用map复制一下节点，避免修改到原树
+    return tree.map(node => ({ ...node })).filter(node => {
+        node.children = node.children && treeFilter(node.children, func)
+        return func(node) || (node.children && node.children.length)
+    })
+}
+//查找满足条件的节点
+function treeNodeFind (tree, func) {
+    for (const data of tree) {
+        if (func(data)) return data
+        if (data.children) {
+            const res = treeFind(data.children, func)
+            if (res) return res
+        }
+    }
+    return null
+}
+
 //查找节点路径
 function treeFindPath (tree, func, path = []) {
-    if (!tree) return []
+    if (!tree) return [];
     for (const data of tree) {
-        path.push(data.id)
-        if (func(data)) return path
+        path.push(data.id);
+        if (func(data)) return path;
         if (data.children) {
             const findChildren = treeFindPath(data.children, func, path)
             if (findChildren.length) return findChildren
         }
-        path.pop()
+        path.pop();
     }
     return []
 }
 //查找多条节点路径
 function treeFindPath2 (tree, func, path = [], result = []) {
     for (const data of tree) {
-        path.push(data.id)
-        func(data) && result.push([...path])
-        data.children && treeFindPath(data.children, func, path, result)
-        path.pop()
+        path.push(data.id);
+        if(func(data)){
+            result.push([...path]);
+        }
+        data.children && treeFindPath2(data.children, func, path, result);
+        path.pop();
     }
     return result
 }
-export {
-    treeForeach2,
+
+function TreeNode(val){
+    this.val=val;
+    this.left=null;
+    this.right=null;
+}
+//根据二叉树的层次遍历的序列结果，创建二叉树
+function createTree_levelOrder(levelOrderArr) {
+    if(levelOrderArr.length){
+        let root=new TreeNode(levelOrderArr.shift());
+        let quene=[root];
+        while (quene.length){
+            let head=quene.shift();
+            if(levelOrderArr.length){
+                head.left=new TreeNode(levelOrderArr.shift());
+                quene.push(head.left);
+            }
+            if(levelOrderArr.length){
+                head.right=new TreeNode(levelOrderArr.shift());
+                quene.push(head.right);
+            }
+        }
+        return root;
+    }
+    return null;
+}
+//生成二叉树层次遍历的序列结果
+function createLevelOrder_tree(root) {
+    if(!root){
+        return [];
+    }
+    let res=[];
+    let quene=[root];
+    while (quene.length){
+        let node=quene.shift();
+        if(node){
+            res.push(node.val);
+            node.left && quene.push(node.left);
+            node.right && quene.push(node.right);
+        }
+    }
+    return res;
+}
+
+export  {
+    treeForeach,
     listToTree,
     treeToList,
+    treeFilter,
+    treeNodeFind,
     treeFind,
-    treeFindPath
+    treeFindPath,
+    treeFindPath2,
+    createTree_levelOrder,
+    createLevelOrder_tree
 }
