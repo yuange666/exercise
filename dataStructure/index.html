@@ -3,12 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .treeItem >.treeItem{
+            padding-left: 10px;
+            cursor: pointer;
+        }
+        .itemIcon {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: red;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-
+    <div id="d" class="treeItem"></div>
 </body>
 <script type="module">
-    import {treeFindPath2} from './treeMethods.js';
+    import {listToTree,createLevelOrder_tree,createTree_levelOrder,TreeNode} from './treeMethods.js';
     //树结构数据示例
     let tree = [
         {
@@ -92,5 +106,7 @@
             parentId: '2'
         }
     ];
+    let treeData=listToTree(list);
+
 </script>
 </html>

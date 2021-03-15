@@ -11,25 +11,9 @@
 </body>
 <script src="js/jquery.js"></script>
 <script type="module">
-    import {Interview} from './js/Interview.js';
-    function* numbers () {
-        yield 1
-        yield 2
-        return 3
-        yield 4
-    }
-    console.log(...numbers());
-    console.log(Array.from(numbers()));
-    function timeout(ms) {
-        return new Promise((resolve) => {
-            setTimeout(resolve, ms);
-        });
-    }
-    async function asyncPrint(value, ms) {
-        await timeout(ms);
-        console.log(value);
-    }
-    asyncPrint('hello world', 2000);
-    Interview.eventLoop();
+   import {quickSort} from "./sort/sorts.js";
+   let arr=[3,2,4,1,6];
+   quickSort(arr);
+   console.log(arr);
 </script>
 </html>

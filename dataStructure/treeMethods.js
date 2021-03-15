@@ -49,6 +49,24 @@ function treeForeach5(tree, func) {
 
 //列表结构转为树结构
 function listToTree(list) {
+    let map={};
+    let res=[];
+    list.forEach((item)=>{
+        map[item.id]=item;
+    });
+    list.forEach((item)=>{
+        let parent=map[item.parentId];
+        if(parent){
+            (parent.children || (parent.children=[])).push(item);
+        }else {
+            res.push(item);
+        }
+    });
+    return res;
+}
+
+//列表结构转为树结构2
+function listToTree2(list) {
     let info = list.reduce((map, node) => {
         map[node.id] = node, node.children = [];
         return map;
@@ -58,6 +76,7 @@ function listToTree(list) {
         return !node.parentId
     })
 }
+
 //树结构转列表-递归
 function treeToList (tree, result = [], level = 0) {
     tree.forEach(node => {
@@ -149,12 +168,18 @@ function createTree_levelOrder(levelOrderArr) {
         while (quene.length){
             let head=quene.shift();
             if(levelOrderArr.length){
-                head.left=new TreeNode(levelOrderArr.shift());
-                quene.push(head.left);
+                let currentVal=levelOrderArr.shift();
+                if(currentVal!==null){
+                    head.left=new TreeNode(currentVal);
+                    quene.push(head.left);
+                }
             }
             if(levelOrderArr.length){
-                head.right=new TreeNode(levelOrderArr.shift());
-                quene.push(head.right);
+                let currentVal=levelOrderArr.shift();
+                if(currentVal!==null){
+                    head.right=new TreeNode(currentVal);
+                    quene.push(head.right);
+                }
             }
         }
         return root;
@@ -169,17 +194,21 @@ function createLevelOrder_tree(root) {
     let res=[];
     let quene=[root];
     while (quene.length){
-        let node=quene.shift();
-        if(node){
-            res.push(node.val);
-            node.left && quene.push(node.left);
-            node.right && quene.push(node.right);
+        let subRes=[];
+        let len=quene.length;
+        for(let i=0;i<len;i++){
+            let cur=quene.shift();
+            subRes.push(cur.val);
+            cur.left && quene.push(cur.left);
+            cur.right && quene.push(cur.right);
         }
+        res.push(subRes);
     }
     return res;
 }
 
 export  {
+    TreeNode,
     treeForeach,
     listToTree,
     treeToList,

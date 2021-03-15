@@ -43,7 +43,37 @@ function selectionSort(arr) {
     }
     return arr;
 }
+//快速排序，复杂度O(nlogn)
+function quickSort(arr){
+    _quickSort(arr,0,arr.length-1);
+}
+function _quickSort(arr,l,r){
+    if(l<r){
+        let key=arr[l];
+        let i=l;
+        let j=r;
+        while (i<j){
+            while (i<j&&arr[j]>key){
+                j--;
+            }
+            if(i<j){
+                swap(i,j,arr);
+                i++;
+            }
+            while (i<j&&arr[i]<key){
+                i++;
+            }
+            if(i<j){
+                swap(i,j,arr);
+                j--;
+            }
+        }
+        _quickSort(arr,l,i-1);
+        _quickSort(arr,i+1,r);
+    }
+}
 export  {
     bubbleSort,
-    selectionSort
+    selectionSort,
+    quickSort
 }
